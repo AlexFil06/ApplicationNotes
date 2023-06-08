@@ -2,7 +2,7 @@ import json
 import datetime
 
 
-
+# открытие файла
 def read_notes():
     try:
         with open('notes.json', 'r', encoding='UTF-8') as file:
@@ -10,13 +10,13 @@ def read_notes():
     except FileNotFoundError:
         notes = {}
     return notes
-
+# сохранение изменений
 def save_notes(notes):
     with open('notes.json', 'w', encoding='UTF-8') as file:
         json.dump(notes, file)
     print('Изменения сохранены\nВозврат в главное меню')
 
-
+# функция  для добавление заметки
 def add_note():
     notes = read_notes()
     id = input('Введите идентификатор заметки: ')
@@ -25,14 +25,14 @@ def add_note():
     date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     notes[id] = {'title': title, 'body': body, 'date': date}
     save_notes(notes)
-
+# функция для ображения всех заметок
 def read_all_notes():
     notes = read_notes()
     for id in notes:
         note = notes[id]
         print(f'ID: {id}\nЗаголовок: {note["title"]}\nТекст: {note["body"]}\nДата: {note["date"]}\n')
 
-
+# функция для отображения заметоки по id
 def read_note():
     notes = read_notes()
     id = input('Введите идентификатор заметки: ')
@@ -42,6 +42,7 @@ def read_note():
     else:
         print('Заметка с таким ID не найдена\nВозврат в главное меню')
 
+# функция для редактирования заметки
 def edit_note():
     notes = read_notes()
     id = input('Введите идентификатор заметки: ')
